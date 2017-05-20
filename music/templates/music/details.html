@@ -1,0 +1,46 @@
+{% extends 'music/nav-base.html'%}
+{% block title %}Album-detail{%endblock%}
+
+{% block viewcode %}
+
+{%if error_message %}
+<p>error message</p>
+{%endif%}
+
+{% if album.songs_set.count >= 1%}
+
+<h2>{{album.artist}}</h2>
+
+
+<table  align="left" >
+        <tr align="left" bgcolor="grey">
+            <th>song lyrix</th> <th>album_title</th>  <th>FileType</th> <th> Favorite </th>
+        </tr>
+
+        {% for song in album.songs_set.all %}
+        <tr align="left">
+            <td><input type="radio" id="radio{{ forloop.counter }}"
+                       name="song" value="{{ song.id }}" >
+                <label for="radio{{ forloop.counter }}"> {{song.song_title}}
+                </label>
+            </td>
+            <td>{{album.album_title}}</td> <td>{{song.file_type}}</td>
+
+             <!--{%if song.is_favourate%}-->
+            <!--<td>Yes</td>-->
+            <!--{% endif %}-->
+        </tr>
+
+            {%endfor%}
+        <!--<tr>-->
+            <!--<td align="center"><input type="submit" name="fav" value="favorite"></td>-->
+            <!--<td></td>-->
+        <!--</tr>-->
+
+</table>
+<!--</form>-->
+{%else %}
+    <h3> oops. no music added here, click
+        <a href="/music/">here</a> to go back</h3>
+{%endif%}
+{% endblock %}
